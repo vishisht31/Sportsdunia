@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import { City } from './src/entities/city.entity';
 import { State } from './src/entities/state.entity';
 import { College } from './src/entities/college.entity';
-import { CollegeWiseCourse } from './src/entities/collegewisecourse.entity';
+import { CollegeWiseCourse } from './src/entities/collegeWiseCourse.entity';
 import { CollegePlacement } from './src/entities/collegePlacement.entity';
 import { User } from './src/entities/user.entity';
 import { faker } from '@faker-js/faker';
