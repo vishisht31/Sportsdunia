@@ -18,7 +18,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // Makes the configuration available globally
+      isGlobal: true, 
     }),
     JwtModule.register({
       global: true,
@@ -27,14 +27,10 @@ import { ConfigModule } from '@nestjs/config';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres', 
-      // host: 'dpg-ctsm6p5ds78s73cgu1ug-a',
-      // port: 5432, 
-      // username: 'sportsdunia_ftiv_user', 
-      // password: 'WZndJdnih2bdiqJbfpglUjXncyd6ZTqr', 
-      // database: 'sportsdunia_ftiv', 
+      
       url:process.env.DATABASE_URL,
       ssl: {
-        rejectUnauthorized: false, // Necessary for self-signed certificates on Render
+        rejectUnauthorized: false, 
       },
     
       entities: [

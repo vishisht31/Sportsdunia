@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "32bc4dc1-c62f-4574-8712-a7dbe379cb83",
+		"name": "SportsDunia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32478094"
+	},
+	"item": [
+		{
+			"name": "college_data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwMSwiaWF0IjoxNzM2MDEyNjk0LCJleHAiOjE3MzYwOTkwOTR9.2ml9TLw6J76HvzsS_YmvOmwZK4y_x8KY6k-hx_l2uT8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sportsdunia.onrender.com/colleges/college_data/1",
+					"protocol": "https",
+					"host": [
+						"sportsdunia",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"colleges",
+						"college_data",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "college_course",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwMSwiaWF0IjoxNzM2MDEyNjk0LCJleHAiOjE3MzYwOTkwOTR9.2ml9TLw6J76HvzsS_YmvOmwZK4y_x8KY6k-hx_l2uT8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sportsdunia.onrender.com/colleges/college_courses/1",
+					"protocol": "https",
+					"host": [
+						"sportsdunia",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"colleges",
+						"college_courses",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    // \"name\":\"vishisht\",\r\n    \"email\":\"vishishtmaroria31@gmail.com\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sportsdunia.onrender.com/auth/login",
+					"protocol": "https",
+					"host": [
+						"sportsdunia",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"vishisht\",\r\n    \"email\":\"vishishtmaroria31@gmail.com\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sportsdunia.onrender.com/auth/signup",
+					"protocol": "https",
+					"host": [
+						"sportsdunia",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "college_city_state",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwMSwiaWF0IjoxNzM2MDEyNjk0LCJleHAiOjE3MzYwOTkwOTR9.2ml9TLw6J76HvzsS_YmvOmwZK4y_x8KY6k-hx_l2uT8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sportsdunia.onrender.com/colleges?city=Kanpur&state=Maharashtra",
+					"protocol": "https",
+					"host": [
+						"sportsdunia",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"colleges"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Kanpur"
+						},
+						{
+							"key": "state",
+							"value": "Maharashtra"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

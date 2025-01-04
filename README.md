@@ -1,99 +1,156 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# College Placement API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project is a backend application built using NestJS and PostgreSQL. It manages college-related data, including information about colleges, their placements, courses, cities, and states. The API allows users to retrieve data on college placements, courses, and filter colleges based on city and state. Additionally, it includes JWT-based authentication to secure endpoints.
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **JWT Authentication**: Secure API with login and signup functionality.
+- **College Data**: Fetch placement data with calculations like averages for each year.
+- **Placement Trend**: Calculate and return placement trends comparing the placement rate for the last two years.
+- **College Courses**: Get the list of courses offered by a college, sorted by course fee.
+- **City and State Filter**: Filter colleges by city or state.
+- **Swagger Documentation**: Automatically generated API documentation for easy testing and usage.
 
-## Project setup
+## Technologies
 
-```bash
-$ npm install
-```
+- **NestJS**: A progressive Node.js framework for building efficient and scalable server-side applications.
+- **PostgreSQL**: A powerful, open-source relational database system.
+- **TypeORM**: An ORM for TypeScript and JavaScript that helps with database operations.
+- **JWT**: JSON Web Tokens for secure authentication.
+- **Swagger**: API documentation and testing interface.
 
-## Compile and run the project
+## Prerequisites
 
-```bash
-# development
-$ npm run start
+Before you begin, ensure you have the following installed:
 
-# watch mode
-$ npm run start:dev
+- Node.js (version 14 or higher)
+- PostgreSQL
+- TypeORM
 
-# production mode
-$ npm run start:prod
-```
+## Installation
 
-## Run tests
+1. Clone the repository:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone https://github.com/vishisht31/Sportsdunia.git
 ```
+
+2. Install the dependencies:
+
+```bash
+cd Sportsdunia
+npm install
+```
+
+3. Setting up the PostgreSQL database:
+
+Make sure PostgreSQL is installed and running. Create a database and configure the connection in `src/app.module.ts/` in the imports section.
+
+Example:
+```json
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "your-username",
+  "password": "your-password",
+  "database": "college_placement",
+  "entities": ["src/entities/*.ts"],
+  "synchronize": true
+}
+```
+
+4. Start the development server
+```bash
+npm run start:dev
+```
+This will start the development server and create the required tables in PostgreSQL.
+
+5. Seed the database:
+Configure the connection in `seed.ts` the same way as did in the `src/app.module.ts/` and run the following command:
+```bash
+npx ts-node seed.ts
+```
+
+This will seed the database with realistic dummy data
+
+
+## Authentication
+
+### JWT Authentication
+
+The APIs use JWT for authentication. To access the secured endpoints, you'll need to:
+
+1. **Signup** to register yourself:
+```bash
+POST /auth/signup
+```
+
+Request Body:
+```json
+{
+  "name": "your name",
+  "email": "user@example.com",
+  "password": "password"
+}
+```
+
+2. **Login** to get the JWT token:
+
+```bash
+POST /auth/login
+```
+
+Example Request:
+```json
+{
+  "email": "user@example.com",
+  "password": "password"
+}
+```
+
+Response:
+```json
+{
+  "message": "Login Successfull",
+  "access_token": "your-jwt-access-token"
+}
+```
+
+3. **Access Secured Endpoints**: Use the JWT token in the `Authorization` header for subsequent requests:
+
+```bash
+Authorization: Bearer ${your-jwt-access-token}
+```
+
+## Running the Application
+
+To run the application in development mode:
+
+```bash
+npm run start:dev
+```
+
+This will start the server on `http://localhost:3000`.
+
+## Testing with Postman
+
+A Postman collection is provided in the `SportsDunia.postman_collection.json` file to help you test the endpoints.
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Our created Database and Backend application are both hosted on render
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+https://sportsdunia.onrender.com/
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Swagger Documentation
 
-## Resources
+The Swagger UI will be available at:
 
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```
+http://localhost:3000/api
+```

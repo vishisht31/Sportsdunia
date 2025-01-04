@@ -7,7 +7,6 @@ import { CollegePlacement } from './src/entities/collegePlacement.entity';
 import { User } from './src/entities/user.entity';
 import { faker } from '@faker-js/faker';
 
-// Predefined lists for realistic data
 const states = [
   "Uttar Pradesh", "Maharashtra", "Tamil Nadu", "Karnataka", "West Bengal", "Gujarat", "Rajasthan", "Andhra Pradesh", "Madhya Pradesh", "Bihar"
 ];
@@ -41,14 +40,9 @@ const placementRates = [
 
 const dataSource = new DataSource({
   type: 'postgres',
-  // host: 'localhost',
-  // port: 5432,
-  // username: 'postgres',
-  // password: 'Lsv@3108',
-  // database: 'SportsDunia',
-  url:"postgresql://sportsdunia_ftiv_user:WZndJdnih2bdiqJbfpglUjXncyd6ZTqr@dpg-ctsm6p5ds78s73cgu1ug-a.oregon-postgres.render.com/sportsdunia_ftiv",
+  url:process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, // Necessary for self-signed certificates on Render
+    rejectUnauthorized: false, 
   },
   entities: [City, State, College, CollegeWiseCourse, CollegePlacement, User],
   synchronize: true,
@@ -60,24 +54,21 @@ async function seedDatabase() {
 
   const stateCount = states.length;
   const cityCount = Object.values(cities).flat().length;
-  const collegeCount = 100; // Simulating 100 colleges for now
-  const placementCount = 500; // Simulating 500 placements
-  const courseCount = 1000; // Simulating 1000 courses
-  const userCount = 500; // Simulating 500 users
+  const collegeCount = 100;
+  const placementCount = 500; 
+  const courseCount = 1000; 
+  const userCount = 500; 
 
   const createdStates: State[] = [];
   const createdCities: City[] = [];
   const createdColleges: College[] = [];
 
   console.log('Seeding States and Cities...');
-  // Create States and Cities
   for (let i = 0; i < stateCount; i++) {
     const state = await dataSource.getRepository(State).save({
       name: states[i],
     });
     createdStates.push(state);
-
-    // Ensure that cities[state.name] is an array before iterating
     const stateCities = cities[states[i]];
     for (let cityName of stateCities) {
       const city = await dataSource.getRepository(City).save({
@@ -88,7 +79,6 @@ async function seedDatabase() {
   }
 
   console.log('Seeding Colleges...');
-  // Create Colleges
   for (let i = 0; i < collegeCount; i++) {
     const state = createdStates[faker.number.int({ min: 0, max: stateCount - 1 })];
     const city = createdCities[faker.number.int({ min: 0, max: cities[state.name].length - 1 })];
@@ -102,7 +92,6 @@ async function seedDatabase() {
   }
 
   console.log('Seeding College Placements...');
-  // Create College Placements
   for (let i = 0; i < placementCount; i++) {
     const college = createdColleges[faker.number.int({ min: 0, max: collegeCount - 1 })];
     const year = faker.number.int({ min: 2020, max: 2023 });
@@ -118,19 +107,18 @@ async function seedDatabase() {
   }
 
   console.log('Seeding College Courses...');
-  // Create College Courses
   for (let i = 0; i < courseCount; i++) {
     const college = createdColleges[faker.number.int({ min: 0, max: collegeCount - 1 })];
     await dataSource.getRepository(CollegeWiseCourse).save({
       college: college,
       course_name: courses[faker.number.int({ min: 0, max: courses.length - 1 })],
-      course_duration: faker.number.int({ min: 3, max: 5 }), // Realistic course duration in years
-      course_fee: faker.number.int({ min: 50000, max: 2000000 }), // Realistic fee range
+      course_duration: faker.number.int({ min: 3, max: 5 }), 
+      course_fee: faker.number.int({ min: 50000, max: 2000000 }),
     });
   }
 
   console.log('Seeding Users...');
-  // Create Users
+
   for (let i = 0; i < userCount; i++) {
     await dataSource.getRepository(User).save({
       name: faker.name.fullName(),
