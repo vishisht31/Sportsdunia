@@ -141,7 +141,7 @@ A Postman collection is provided in the `SportsDunia.postman_collection.json` fi
 
 ## Deployment
 
-Our created Database and Backend application are both hosted on render
+My created Database and Backend application are both hosted on render
 
 ```bash
 https://sportsdunia.onrender.com/
